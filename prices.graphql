@@ -1,0 +1,22 @@
+directive @tag(name: String!) repeatable on
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | UNION
+
+"The price calculated in the local currency."
+type Price @key(fields: "id") {
+    "Internal ID mapping for the price."
+    id: ID! 
+    "Numeric price in the local currency."
+    usdPrice: Float
+    "Currency decorator."
+    priceDecorator: String 
+}
+
+extend type Query {
+    "Get a list of all prices"
+    prices: [Price] 
+    "Get a single price"
+    price(id: ID!): Price!
+}
